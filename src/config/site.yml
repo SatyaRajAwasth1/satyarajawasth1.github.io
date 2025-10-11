@@ -1,0 +1,29 @@
+# Site Configuration
+title: "Satya Raj Awasthi - Software Engineer & Researcher"
+description: "Personal academic portfolio of Satya Raj Awasthi - Software Engineer & Researcher"
+name: "Satya Raj Awasthi"
+image: "/SatyaRajAwasthi_profile.jpg"
+cv_url: "/cv.pdf"
+
+# Navigation
+nav:
+  - title: "Home"
+    link: "/"
+    order: 1
+  - title: "CV"
+    link: "/cv"
+    order: 2
+
+# Social Links
+social:
+  github: "https://github.com/SatyaRajAwasth1"
+  linkedin: "https://linkedin.com/in/SatyaRajAwasth1"
+
+# Theme
+theme:
+  primary_color: "#2563eb"
+  accent_color: "#3b82f6"
+  background_color: "#ffffff"
+  text_color: "#1f2937"
+  font_size_base: "18px"  # Base font size for better readability
+  content_width: "1000px" # Max width for content

@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getConfig } from '../utils/config';
+
+const config = await getConfig();
+---
+
+<Layout title="CV">
+  <div class="cv-container">
+    <p class="description">
+      Download my detailed CV to learn more about my educational background, work experience, research projects, and technical skills.
+    </p>
+    <a href={config.cv_url} class="download-button">
+      📄 Download CV
+    </a>
+  </div>
+</Layout>
+
+<style>
+  .cv-container {
+    max-width: var(--content-width, 1000px);
+    margin: 6rem auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .download-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--primary-color);
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .download-button:hover {
+    color: var(--background-color);
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .cv-container {
+      margin: 4rem auto;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      padding: 0 1rem;
+    }
+  }
+</style>

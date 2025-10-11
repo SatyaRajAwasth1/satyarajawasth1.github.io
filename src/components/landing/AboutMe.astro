@@ -1,0 +1,116 @@
+---
+const { image } = Astro.props;
+---
+
+<section class="about-me">
+  <div class="top-section">
+    <div class="intro-content">
+      <h2>About Me</h2>
+      <p>
+        Hello! I'm <strong>Satya Raj Awasthi</strong>, a final-year Software Engineering undergraduate at <a href="https://ncit.edu.np/" target="_blank" rel="noopener noreferrer"><strong>NCIT</strong></a>, <a href="https://pu.edu.np/" target="_blank" rel="noopener noreferrer"><strong>Pokhara University</strong></a>. I'm deeply fascinated by how software systems are designed, built, and evolved — and I enjoy exploring new ways to make them more efficient, reliable, and intelligent.
+      </p>
+      <p>
+        I love studying and experimenting with software engineering principles, programming systems, and distributed architectures, constantly trying to bridge theory and practice through exploration and experimentation.
+      </p>
+    </div>
+    <div class="image-container">
+      <img src={image} alt="Satya Raj Awasthi" class="profile-image" />
+    </div>
+  </div>
+  <div>
+    <p>
+      Alongside my studies, I work as a Software Engineer at <a href="https://www.linkedin.com/company/esewa/" target="_blank" rel="noopener noreferrer"><strong>eSewa Ltd.</strong></a>, where I've gained hands-on experience building real-world systems at scale. I also lead and contribute to student technical communities, including serving as a <a href="https://githubcampus.expert/SatyaRajAwasth1/" target="_blank" rel="noopener noreferrer"><strong>GitHub Campus Expert</strong></a>, where I mentor peers and promote collaboration in open-source and technology education.
+    </p>
+    <p>
+      I'm currently seeking research or graduate (PhD) opportunities where I can explore challenging problems related to my research interests and grow as a researcher through active collaboration and experimentation.
+    </p>
+  </div>
+</section>
+
+<style>
+  .about-me {
+    max-width: var(--content-width, 1000px);
+    margin: 3rem auto 4rem;
+    padding: 0 2rem;
+  }
+
+  .top-section {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 4rem;
+    align-items: start;
+    margin-bottom: 3rem;
+  }
+
+  .intro-content {
+    padding-right: 2rem;
+  }
+
+  .full-width-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    font-size: 1.1rem;
+  }
+
+  p a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  p a:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .profile-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  @media (max-width: 768px) {
+    .top-section {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .intro-content {
+      padding-right: 0;
+    }
+
+    .image-container {
+      position: static;
+    }
+
+    .profile-image {
+      max-width: 280px;
+    }
+
+    .full-width-content {
+      padding: 0 1rem;
+    }
+  }
+</style>
