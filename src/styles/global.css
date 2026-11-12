@@ -1,1 +1,148 @@
 @import "tailwindcss";
+
+/* ==================================================================
+   A typeset page: one book serif, a text column and a side margin
+   (photo, contact, dates, notes), the way a well-set paper or book is.
+   ================================================================== */
+
+:root,
+:root[data-theme="light"] {
+  --paper: #ffffff;
+  --ink: #111111;
+  --ink-2: #333333;
+  --ink-3: #6e6e6e;
+  --rule: #e4e4e4;
+  --accent: #000000;          /* link hover */
+  --accent-line: #b5b5b5;     /* link underline */
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #0b0b0b;
+  --ink: #f0f0f0;
+  --ink-2: #cfcfcf;
+  --ink-3: #8f8f8f;
+  --rule: #2a2a2a;
+  --accent: #ffffff;
+  --accent-line: #5a5a5a;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --paper: #0b0b0b;
+    --ink: #f0f0f0;
+    --ink-2: #cfcfcf;
+    --ink-3: #8f8f8f;
+    --rule: #2a2a2a;
+    --accent: #ffffff;
+    --accent-line: #5a5a5a;
+    color-scheme: dark;
+  }
+}
+
+:root {
+  --serif: "EB Garamond", Garamond, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --page: 68rem;
+  --text: 42rem;   /* main column */
+  --gap: 3.5rem;   /* gutter between text and margin */
+}
+
+/* ------------------------------------------------------------------ */
+
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1.5rem; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.1875rem;   /* 19px; Garamond runs small */
+  line-height: 1.55;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-kerning: normal;
+  font-feature-settings: "liga", "kern";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media (min-width: 640px) { body { font-size: 1.25rem; } }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.17em;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+}
+a:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+
+em, i { font-style: italic; }
+strong, b { font-weight: 600; }
+
+.sc { font-variant-caps: all-small-caps; letter-spacing: 0.04em; }
+
+.page {
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* ------------------------------------------------------------------
+   Text + margin grid. A `.row` places its `.note` in the margin
+   beside the rest of its content; on narrow screens notes stack.
+   ------------------------------------------------------------------ */
+.row > .note {
+  font-size: 0.85em;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+@media (min-width: 880px) {
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, var(--text)) minmax(0, 1fr);
+    column-gap: var(--gap);
+    align-items: start;
+  }
+  .row > :not(.note) { grid-column: 1; }
+  .row > .note { grid-column: 2; grid-row: 1 / span 20; padding-top: 0.15em; }
+}
+
+/* ------------------------------------------------------------------
+   Sections and entries
+   ------------------------------------------------------------------ */
+.section { margin-top: 3.25rem; }
+.section > h2,
+.page-title {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.5em;
+  line-height: 1.2;
+  margin-bottom: 0.9rem;
+}
+@media (min-width: 880px) {
+  .section > h2 { max-width: var(--text); }
+}
+
+.prose p + p { margin-top: 0.85em; text-indent: 0; }
+
+.entry + .entry { margin-top: 1.6rem; }
+.entry-head .title,
+.pub .title { font-weight: 600; }
+
+/* On small screens show an entry's dates first, as a quiet line. */
+@media (max-width: 879px) {
+  .entry > .note { margin-bottom: 0.1rem; font-style: italic; }
+  .entry { display: flex; flex-direction: column; }
+  .entry > .note { order: -1; }
+}
+
+/* Publications */
+.pub-authors .me { font-weight: 600; color: var(--ink); }
+.pub-authors, .pub-venue { color: var(--ink-2); }
+.pub-links a + a { margin-left: 0.75em; }

@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getConfig } from '../utils/config';
+
+interface Props {
+  entries: CollectionEntry<'publications'>[];
+}
+const config = await getConfig();
+const entries = [...Astro.props.entries].sort((a, b) => b.data.year - a.data.year);
+const LABELS = { pdf: 'pdf', arxiv: 'arXiv', doi: 'doi', code: 'code', slides: 'slides' } as const;
+---
+
+{
+  entries.map(({ data }) => (
+    <article class="row entry pub">
+      <p class="title">{data.title}</p>
+      <p class="pub-authors">
+        {data.authors.map((a, i) => (
+          <>
+            {i > 0 && (i === data.authors.length - 1 ? ', and ' : ', ')}
+            {a === config.name ? <span class="me">{a}</span> : a}
+          </>
+        ))}
+      </p>
+      <p class="pub-venue">
+        <em>{data.venue}</em>
+        {data.note && <>. {data.note}</>}
+      </p>
+      {data.links && (
+        <p class="pub-links sc">
+          {Object.entries(LABELS).map(([key, label]) => {
+            const url = data.links?.[key as keyof typeof LABELS];
+            return url ? <a href={url}>{label}</a> : null;
+          })}
+        </p>
+      )}
+      <p class="note">{data.year}</p>
+    </article>
+  ))
+}

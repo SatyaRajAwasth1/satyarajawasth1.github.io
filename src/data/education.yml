@@ -1,0 +1,14 @@
+- id: be
+  order: 1
+  title: Bachelor of Engineering in Software Engineering
+  org: Nepal College of Information Technology (NCIT), Pokhara University
+  url: https://ncit.edu.np
+  period: 2022 – 2026
+  details:
+    - Full undergraduate scholarship awarded by Pokhara University through a merit-based national-level competitive entrance examination.
+
+- id: diploma
+  order: 2
+  title: Diploma in Computer Engineering
+  org: "Shikshodaya Technical Secondary School"
+  period: "2016 – 2020"

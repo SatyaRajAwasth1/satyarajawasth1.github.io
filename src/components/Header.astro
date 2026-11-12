@@ -1,0 +1,83 @@
+---
+import { getConfig } from '../utils/config';
+
+interface Props {
+  /** In-page sections to link to (only those actually rendered). */
+  sections?: { id: string; title: string }[];
+}
+
+const config = await getConfig();
+const {
+  sections = [
+    { id: 'research', title: 'Research' },
+    { id: 'experience', title: 'Experience' },
+    { id: 'education', title: 'Education' },
+    { id: 'service', title: 'Service' },
+  ],
+} = Astro.props;
+const onHome = Astro.url.pathname === '/';
+const base = onHome ? '' : '/';
+const shortTitle = (t: string) => t.split(' ')[0]; // "Service & Community" → "Service"
+---
+
+<header class="page top">
+  <a href="/" class="home sc" aria-current={onHome ? 'page' : undefined}>{config.name}</a>
+  <nav aria-label="Main">
+    <ul class="sc">
+      {sections.map((s) => <li><a href={`${base}#${s.id}`}>{shortTitle(s.title)}</a></li>)}
+      <li><a href="/cv" aria-current={Astro.url.pathname.startsWith('/cv') ? 'page' : undefined}>CV</a></li>
+      <li>
+        <button id="theme-toggle" type="button" class="sc" aria-label="Color theme: auto. Click to change.">
+          <span aria-hidden="true">Auto</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    var order = ['auto', 'light', 'dark'];
+    var names = { auto: 'Auto', light: 'Light', dark: 'Dark' };
+    function sync() {
+      var pref = document.documentElement.dataset.themePref || 'auto';
+      btn.firstElementChild.textContent = names[pref];
+      btn.title = 'Theme: ' + pref + ' (click to change)';
+      btn.setAttribute('aria-label', 'Color theme: ' + pref + '. Click to change.');
+    }
+    sync();
+    btn.addEventListener('click', function () {
+      var cur = document.documentElement.dataset.themePref || 'auto';
+      window.__setTheme(order[(order.indexOf(cur) + 1) % order.length]);
+      sync();
+    });
+  })();
+</script>
+
+<style>
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 0.6rem;
+    font-size: 1.05rem;
+  }
+  .home { text-decoration: none; color: var(--ink); }
+  /* The masthead already shows the name on the home page. */
+  .home[aria-current='page'] { visibility: hidden; }
+  ul { display: flex; flex-wrap: wrap; gap: 0 1.1rem; }
+  ul a, button { color: var(--ink-3); text-decoration: none; }
+  ul a:hover, button:hover, ul a[aria-current='page'] { color: var(--ink); }
+  button { font: inherit; letter-spacing: inherit; cursor: pointer; }
+  button::before { content: '☾\00a0'; font-variant-caps: normal; }
+  :global(html[data-theme='dark']) button::before { content: '☀\00a0'; }
+
+  @media (max-width: 560px) {
+    .home[aria-current='page'] { display: none; }
+  }
+</style>

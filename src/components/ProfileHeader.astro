@@ -1,0 +1,61 @@
+---
+// Masthead: name and bio in the text column; photo and contact details in the margin.
+import { getConfig, LINK_LABELS } from '../utils/config';
+
+const config = await getConfig();
+const links = Object.entries(config.links)
+  .filter(([, url]) => url)
+  .map(([key, url]) => ({ label: LINK_LABELS[key] ?? key, url }));
+const [user, domain] = config.email.split('@');
+---
+
+<section id="about" class="row masthead" aria-label="Introduction">
+  <div class="intro">
+    <h1>Hi, I’m {config.name}</h1>
+    <div class="prose bio"><slot /></div>
+  </div>
+
+  <aside class="note card">
+    <img src={config.image} alt={`Photo of ${config.name}`} width="240" height="300" class="photo" />
+    <ul class="contact">
+      <li><a href={`mailto:${config.email}`}>{user}<span class="at">@</span>{domain}</a></li>
+      <li><a href={config.cv_url}>Curriculum vitae</a> <span class="dim">(PDF)</span></li>
+      {links.map((l) => <li><a href={l.url} rel="me noopener">{l.label}</a></li>)}
+      {config.location && <li class="dim"><em>{config.location}</em></li>}
+    </ul>
+  </aside>
+</section>
+
+<style>
+  .masthead { padding-top: 2.5rem; }
+  h1 {
+    font-weight: 400;
+    font-size: 2.2em;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .bio { margin-top: 1.4rem; }
+
+  .card { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1.25rem; align-items: start; margin-bottom: 1.75rem; }
+  .masthead { display: flex; flex-direction: column; }
+  .card { order: 1; margin: 2rem 0 0; }
+  .photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.02);
+    border: 1px solid var(--rule);
+  }
+  .contact { color: var(--ink-2); line-height: 1.6; }
+  .contact a { text-decoration-color: var(--rule); }
+  .contact a:hover { text-decoration-color: var(--accent); }
+  .at { font-family: var(--serif); }
+  .dim { color: var(--ink-3); }
+
+  @media (min-width: 880px) {
+    .masthead { display: grid; padding-top: 3.5rem; }
+    .card { order: 0; display: block; margin: 0; padding-top: 0.6rem; }
+    .photo { width: 14rem; margin-bottom: 1.1rem; }
+    h1 { font-size: 2.75em; }
+  }
+</style>

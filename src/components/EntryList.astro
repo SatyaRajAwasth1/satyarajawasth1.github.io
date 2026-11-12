@@ -1,0 +1,46 @@
+---
+// Experience / education / service entries: text in the main column, dates and place in the margin.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entries: CollectionEntry<'experience' | 'education' | 'service'>[];
+  /** Lead with the organization (e.g. "Niural AI, Software Engineer II"). */
+  orgFirst?: boolean;
+}
+const { orgFirst = false } = Astro.props;
+const entries = [...Astro.props.entries].sort((a, b) => a.data.order - b.data.order);
+---
+
+{
+  entries.map(({ data }) => {
+    const org = data.org ? (data.url ? <a href={data.url}>{data.org}</a> : data.org) : null;
+    const [lead, rest] = orgFirst && org ? [org, data.title] : [data.title, org];
+    return (
+      <article class="row entry">
+        <p class="entry-head">
+          <span class="title">{lead}</span>
+          {rest && <>, <em>{rest}</em></>}
+        </p>
+        {data.details?.length ? (
+          <ul class="details">
+            {data.details.map((d) => <li set:html={d} />)}
+          </ul>
+        ) : null}
+        {(data.period || data.location) && (
+          <p class="note">
+            {data.period}
+            {data.period && data.location && <br />}
+            {data.location && <em>{data.location}</em>}
+          </p>
+        )}
+      </article>
+    );
+  })
+}
+
+<style>
+  .details { margin-top: 0.3rem; color: var(--ink-2); }
+  .details li { position: relative; padding-left: 1.1em; }
+  .details li + li { margin-top: 0.25rem; }
+  .details li::before { content: '–'; position: absolute; left: 0; color: var(--ink-3); }
+</style>

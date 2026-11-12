@@ -1,13 +1,43 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import AboutMe from '../components/landing/AboutMe.astro';
-import ResearchInterests from '../components/landing/ResearchInterests.astro';
-import { getConfig } from '../utils/config';
+import ProfileHeader from '../components/ProfileHeader.astro';
+import Section from '../components/Section.astro';
+import About from '../components/home/About.astro';
+import ResearchInterests from '../components/home/ResearchInterests.astro';
+import NewsList from '../components/NewsList.astro';
+import PublicationList from '../components/PublicationList.astro';
+import EntryList from '../components/EntryList.astro';
 
-const config = await getConfig();
+const [news, publications, experience, education, service] = await Promise.all([
+  getCollection('news'),
+  getCollection('publications'),
+  getCollection('experience'),
+  getCollection('education'),
+  getCollection('service'),
+]);
+
+// Section order on the page. Data-backed sections are skipped when empty.
+const sections = [
+  { id: 'research', title: 'Research', show: true },
+  { id: 'news', title: 'News', show: news.length > 0 },
+  { id: 'publications', title: 'Publications', show: publications.length > 0 },
+  { id: 'experience', title: 'Experience', show: experience.length > 0 },
+  { id: 'education', title: 'Education', show: education.length > 0 },
+  { id: 'service', title: 'Service', show: service.length > 0 },
+].filter((s) => s.show);
+
+const has = (id: string) => sections.some((s) => s.id === id);
+const navSections = sections;
 ---
 
-<Layout>
-  <AboutMe image={config.image} />
-  <ResearchInterests />
+<Layout sections={navSections}>
+  <ProfileHeader><About /></ProfileHeader>
+
+  <Section id="research" title="Research interests"><ResearchInterests /></Section>
+  {has('news') && <Section id="news" title="News"><NewsList entries={news} /></Section>}
+  {has('publications') && <Section id="publications" title="Publications"><PublicationList entries={publications} /></Section>}
+  {has('experience') && <Section id="experience" title="Experience"><EntryList entries={experience} orgFirst /></Section>}
+  {has('education') && <Section id="education" title="Education"><EntryList entries={education} /></Section>}
+  {has('service') && <Section id="service" title="Service and community"><EntryList entries={service} /></Section>}
 </Layout>

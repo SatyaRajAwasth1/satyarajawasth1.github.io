@@ -1,0 +1,6 @@
+# Newest first is not required; entries are sorted by date.
+# Example:
+# - id: 2027-01-research-start
+#   date: 2027-01-15
+#   text: Started a remote research collaboration with <a href="https://...">Prof. X</a> at Y University.
+[]

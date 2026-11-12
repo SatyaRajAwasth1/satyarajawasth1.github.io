@@ -5,62 +5,18 @@ import { getConfig } from '../utils/config';
 const config = await getConfig();
 ---
 
-<Layout title="Satya Raj Awasthi - Academic CV/Resume">
-  <div class="cv-container">
-    <p class="description">
-      View my detailed CV to know more about my educational background, work experience, research projects, and technical skills.
-    </p>
-    <a href={config.cv_url} class="download-button">
-      📄 View My CV
-    </a>
-  </div>
+<Layout title={`Curriculum vitae · ${config.name}`}>
+  <section class="cv">
+    <h1 class="page-title">Curriculum vitae</h1>
+    <p class="links"><a href={config.cv_url}>Open the PDF</a> or <a href={config.cv_url} download>download it</a>.</p>
+    <object data={config.cv_url} type="application/pdf" class="frame" aria-label="Curriculum vitae (PDF)">
+      <p>Your browser can't show the PDF here. <a href={config.cv_url}>Open it instead</a>.</p>
+    </object>
+  </section>
 </Layout>
 
 <style>
-  .cv-container {
-    max-width: var(--content-width, 1000px);
-    margin: 6rem auto;
-    padding: 0 2rem;
-    text-align: center;
-  }
-
-  .description {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: var(--text-color);
-    margin-bottom: 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .download-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--primary-color);
-    background-color: transparent;
-    border: 2px solid var(--primary-color);
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-  }
-
-  .download-button:hover {
-    color: var(--background-color);
-    background-color: var(--primary-color);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    .cv-container {
-      margin: 4rem auto;
-    }
-
-    .description {
-      font-size: 1.1rem;
-      padding: 0 1rem;
-    }
-  }
+  .cv { padding-top: 2.5rem; }
+  .links { color: var(--ink-2); }
+  .frame { display: block; width: 100%; height: 85vh; margin-top: 1.25rem; border: 1px solid var(--rule); }
 </style>
