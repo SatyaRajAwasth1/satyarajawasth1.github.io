@@ -1,0 +1,193 @@
+% ------------------------------------------------------------------
+% Academic CV - Satya Raj Awasthi
+% Build:  yarn cv   (runs latexmk and copies the PDF to public/)
+% Typeset in EB Garamond to match the website.
+% ------------------------------------------------------------------
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[lining]{ebgaramond}
+\usepackage[margin=0.75in,top=0.6in,bottom=0.7in]{geometry}
+\usepackage{microtype}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\ifdefined\pdfgentounicode
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+\fi
+
+\hypersetup{
+  pdftitle={Satya Raj Awasthi - Curriculum Vitae},
+  pdfauthor={Satya Raj Awasthi},
+}
+
+\definecolor{muted}{gray}{0.38}
+\pagestyle{plain}
+\setlength{\parindent}{0pt}
+\raggedright
+\frenchspacing
+
+% Section headings: small caps with a hairline rule.
+\titleformat{\section}{\large\scshape}{}{0pt}{}[\vspace{-0.55em}\rule{\textwidth}{0.4pt}]
+\titlespacing*{\section}{0pt}{0.85em}{0.4em}
+
+% \entry{Left bold}{Right}{Left italic}{Right italic}
+\newcommand{\entry}[4]{%
+  \textbf{#1}\hfill #2\par
+  \ifx&#3&\else{\itshape #3}\hfill{\itshape\color{muted}#4}\par\fi
+  \nopagebreak
+}
+% \project{Title}{Context}{Link}
+\newcommand{\project}[3]{%
+  \textbf{#1}\hfill{\color{muted}#3}\par
+  {\itshape #2}\par
+  \nopagebreak
+}
+
+\setlist[itemize]{leftmargin=1.1em,label={--},itemsep=1pt,topsep=1.5pt,parsep=0pt}
+\newcommand{\gap}{\vspace{0.45em}}
+
+\begin{document}
+
+% ------------------------------------------------------------------
+\begin{center}
+  {\fontsize{24}{28}\selectfont Satya Raj Awasthi}\\[0.45em]
+  \href{mailto:satyaraj.awasthi1@gmail.com}{satyaraj.awasthi1@gmail.com}
+  \ \textperiodcentered\ \href{https://satyarajawasth1.github.io}{satyarajawasth1.github.io}
+  \ \textperiodcentered\ {\itshape Kathmandu, Nepal}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Research Interests}
+Software engineering, AI for software engineering, and programming systems and program analysis,
+especially at their intersections; also databases and distributed systems. I am particularly
+interested in building software systems that are reliable, scalable, and less error-prone, and in how
+agentic AI pipelines can be used in practice across every stage of the software development lifecycle
+(development, debugging, testing, and deployment), not just for code generation.
+
+% ------------------------------------------------------------------
+\section{Education}
+\entry{Pokhara University (NCIT, Lalitpur)}{2022 -- 2026}
+      {Bachelor of Engineering in Software Engineering}{Lalitpur, Nepal}
+\begin{itemize}
+  \item Full undergraduate scholarship awarded by Pokhara University through a merit-based,
+        national-level competitive entrance examination.
+  \item \textit{Relevant coursework:}
+  \begin{itemize}[leftmargin=1.1em,topsep=1pt]
+    \item \textit{Programming and theory:} Principles of Programming Languages; Data Structures and
+          Algorithms; Analysis and Design of Algorithms; Mathematical Foundations of Computer Science
+          (Logic, Automata).
+    \item \textit{Systems:} Distributed Systems; Operating Systems; Real-Time Systems; Database
+          Management Systems; Big Data; Computer Networks.
+    \item \textit{Software engineering:} Software Testing, Verification, Validation and Quality;
+          Software Project Management.
+    \item \textit{Machine learning and mathematics:} Artificial Intelligence and Neural Networks;
+          Probability and Queuing Theory; Numerical Methods.
+  \end{itemize}
+\end{itemize}
+\gap
+\entry{Shikshodaya Technical Secondary School}{2016 -- 2020}
+      {Diploma in Computer Engineering}{Nepal}
+
+% ------------------------------------------------------------------
+\section{Research and Academic Projects}
+\project{sysCrow: Log-Based Anomaly Detection and Fault Localization}
+        {Minor project, B.E.\ in Software Engineering, NCIT}
+        {\href{https://github.com/SatyaRajAwasth1/sysCrow}{github.com/SatyaRajAwasth1/sysCrow}}
+\begin{itemize}
+  \item Built an end-to-end system that detects anomalous behavior in system logs and points to the
+        components and events most likely responsible for a failure.
+  \item Implemented sequence-based anomaly detection with LSTM models, inspired by DeepLog (Du et al.,
+        ACM CCS 2017), and fault localization through unsupervised log segmentation, adapted from
+        Dobrowolski et al.\ (Applied Sciences, 2024). \textit{Python, LSTM.}
+\end{itemize}
+\gap
+\project{SwiftCache: A High-Performance In-Memory Caching Database}
+        {Final-year major project, B.E.\ in Software Engineering, NCIT}{}
+\begin{itemize}
+  \item Designed and implemented an in-memory caching database focused on low latency, high
+        throughput, memory efficiency, and concurrent data structures.
+  \item Implemented LRU and S3-FIFO eviction alongside a lightweight ML-based eviction policy; explored
+        forkless snapshotting and Zstd compression for persistence, and benchmarked performance under
+        high load. \textit{Rust, Tokio, Zstd.}
+\end{itemize}
+\gap
+\project{Secure Data Migration System over TCP}
+        {Network Programming coursework, NCIT}
+        {\href{https://github.com/SatyaRajAwasth1/tcp-data-migration-system}{github.com/SatyaRajAwasth1/tcp-data-migration-system}}
+\begin{itemize}
+  \item Designed a custom application-layer protocol over TCP that migrates directories by transferring
+        only missing or modified files, detected by comparing SHA-256 hashes.
+  \item Implemented chunked streaming, resumable transfers from the last byte received, end-to-end
+        integrity verification, and multiplexed connections with \texttt{select()}.
+        \textit{C, POSIX sockets.}
+\end{itemize}
+\gap
+\textbf{Centralized Logging and Distributed Tracing System}\par\nopagebreak
+\begin{itemize}
+  \item Built centralized logging that propagates tracing IDs across microservices, with Kafka and the
+        ELK Stack for log ingestion and visualization. \textit{Java, Kafka, ELK.}
+\end{itemize}
+
+% ------------------------------------------------------------------
+\section{Professional Experience}
+\entry{Niural AI}{December 2025 -- Present}{Software Engineer II}{Lalitpur, Nepal}
+\begin{itemize}
+  \item Architected and developed an MCP server with Accounts Payable and Accounts Receivable tools,
+        enabling AI clients such as ChatGPT and Claude to interact with business systems and automate
+        financial workflows through AI agents.
+  \item Redesigned the data layer from a DynamoDB single-table architecture to a hybrid Aurora
+        PostgreSQL--DynamoDB architecture, introducing normalized relational data models, hybrid
+        application workflows, and stream-based synchronization between data stores.
+  \item Designed and implemented event-driven recurring payment and invoicing workflows using AWS
+        EventBridge, incorporating self-rescheduling execution, per-cycle state management, and
+        approval orchestration integrating AI agents.
+  \item Built automated production failure-detection and alerting pipelines using AWS CloudWatch,
+        EventBridge, SQS, and Lambda, integrating incident notifications with Slack.
+\end{itemize}
+\gap
+\entry{eSewa Ltd.}{March 2023 -- December 2025}{Software Engineer I}{Lalitpur, Nepal}
+\begin{itemize}
+  \item Built a real-time transaction notification system on Apache Kafka, secured with key-pair (PKI)
+        encryption, so that more than 500K merchants could update their billing systems automatically.
+  \item Designed and built a maker-checker administration service that lets administrators review and
+        publish AI-recommended, personalized screens in the eSewa app, which serves 11M+ users.
+  \item Re-engineered the SMS middleware between eSewa and the telecom operators NTC and Ncell, improving
+        throughput, latency, and reliability for millions of daily transaction, authentication, and
+        notification messages.
+  \item Implemented a key-pair handshake protocol for device binding and SMS security, which also
+        provides the basis for end-to-end encrypted communication between the mobile app and backend.
+  \item Designed a generic QR format that lets eSewa's scanner read merchant QR codes without app
+        changes, cutting merchant integration time by about 80\%.
+  \item Built an in-house deferred deep-linking service, a lower-cost alternative to Google's solution,
+        to track marketing campaigns across app installs and link clicks.
+\end{itemize}
+
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+\section{Leadership, Community, and Talks}
+\begin{itemize}
+  \item \textbf{GitHub Campus Expert}, \textit{GitHub Education}: selected among 70 candidates from
+        8,000+ applicants; delivered 10+ technical workshops and mentored at 8+ hackathons.
+  \item \textbf{Founder and Lead}, \textit{Nepal Tek Community (NTK)}: established and led a 10+ member
+        core team, organizing technical events and building 6 technology-focused sub-communities.
+  \item \textbf{Working Committee Member}, \textit{Nepal Open Source Klub (NOSK)}: helped organize 20+
+        free and open source software events, including Software Freedom Day and Hacktoberfest,
+        engaging 1,000+ participants.
+  \item \textbf{Speaker}: Hack36 8.0 (MNNIT, India); GNOME Asia Summit 2023; GitHub Field Day 2023 and 2024.
+  \item \textbf{Mentor}: NOSK Hackfest, MBM Ideafest, and other student-led hackathons.
+\end{itemize}
+
+% ------------------------------------------------------------------
+% ------------------------------------------------------------------
+\section{Technical Skills}
+\begin{tabular}{@{}p{0.16\textwidth}@{}p{0.84\textwidth}@{}}
+  Languages      & Java, Python, Rust, C, C++, JavaScript, SQL \\
+  Systems        & Spring Boot, FastAPI, PostgreSQL, MySQL, MongoDB, DynamoDB, Redis, Elasticsearch, Kafka \\
+  Infrastructure & AWS (Lambda, EventBridge, SQS, ECS, S3, CloudWatch), Docker, Terraform, Linux, Git
+\end{tabular}
+
+\end{document}

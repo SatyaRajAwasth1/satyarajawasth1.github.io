@@ -1,43 +1,40 @@
-# Astro Starter Kit: Minimal
+# Satya Raj Awasthi — academic website
 
-```sh
-yarn create astro@latest -- --template minimal
-```
+Source for <https://satyarajawasth1.github.io>, built with [Astro](https://astro.build) and deployed to
+GitHub Pages by `.github/workflows/astro.yml` on every push to `main`.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command        | What it does                                                        |
+| :------------- | :------------------------------------------------------------------ |
+| `yarn install` | Install dependencies (Yarn 4, Node ≥ 22.23.4)                       |
+| `yarn dev`     | Start the dev server at `localhost:4321`                            |
+| `yarn build`   | Build the site into `dist/`                                         |
+| `yarn preview` | Preview the built site                                              |
+| `yarn cv`      | Compile `cv/SatyaRajAwasthi_CV.tex` and copy the PDF into `public/` |
 
-Inside of your Astro project, you'll see the following folders and files:
+`yarn cv` needs a LaTeX installation with `latexmk` (for example MacTeX or TeX Live).
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Where to edit content
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+| What                                 | File                                     |
+| :----------------------------------- | :--------------------------------------- |
+| Name, email, profile links, location | `src/config/site.yml`                    |
+| Bio (top of the home page)           | `src/components/home/About.astro`        |
+| Research interests                   | `src/components/home/ResearchInterests.astro` |
+| Experience                           | `src/data/experience.yml`                |
+| Education                            | `src/data/education.yml`                 |
+| Service and community                | `src/data/service.yml`                   |
+| News                                 | `src/data/news.yml`                      |
+| Publications                         | `src/data/publications.yml`              |
+| CV                                   | `cv/SatyaRajAwasthi_CV.tex`, then `yarn cv` |
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Sections backed by a data file are hidden while that file is an empty list (`[]`), so News and
+Publications appear automatically once they have their first entry. Each data file has an example at
+the top. Profile links in `site.yml` with an empty value (such as `google_scholar`) are hidden too.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Layout
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `yarn install`             | Installs dependencies                            |
-| `yarn dev`             | Starts local dev server at `localhost:4321`      |
-| `yarn build`           | Build your production site to `./dist/`          |
-| `yarn preview`         | Preview your build locally, before deploying     |
-| `yarn astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `yarn astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/layouts/Layout.astro`: page shell, metadata, and the theme script (auto / light / dark).
+- `src/styles/global.css`: colors, typography, and the text-plus-margin grid.
+- `src/components/`: header, footer, profile masthead, and section/list components.

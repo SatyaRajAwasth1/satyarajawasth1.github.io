@@ -1,13 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import AboutMe from '../components/landing/AboutMe.astro';
-import ResearchInterests from '../components/landing/ResearchInterests.astro';
-import { getConfig } from '../utils/config';
+import ProfileHeader from '../components/ProfileHeader.astro';
+import Section from '../components/Section.astro';
+import About from '../components/home/About.astro';
+import ResearchInterests from '../components/home/ResearchInterests.astro';
+import NewsList from '../components/NewsList.astro';
+import PublicationList from '../components/PublicationList.astro';
+import EntryList from '../components/EntryList.astro';
+import { getHomeSections } from '../utils/sections';
 
-const config = await getConfig();
+const { sections, collections } = await getHomeSections();
+const { news, publications, experience, education, service } = collections;
+const has = (id: string) => sections.some((s) => s.id === id);
 ---
 
 <Layout>
-  <AboutMe image={config.image} />
-  <ResearchInterests />
+  <ProfileHeader><About /></ProfileHeader>
+
+  <Section id="research" title="Research interests"><ResearchInterests /></Section>
+  {has('news') && <Section id="news" title="News"><NewsList entries={news} /></Section>}
+  {has('publications') && <Section id="publications" title="Publications"><PublicationList entries={publications} /></Section>}
+  {has('experience') && <Section id="experience" title="Experience"><EntryList entries={experience} orgFirst /></Section>}
+  {has('education') && <Section id="education" title="Education"><EntryList entries={education} /></Section>}
+  {has('service') && <Section id="service" title="Service and community"><EntryList entries={service} /></Section>}
 </Layout>

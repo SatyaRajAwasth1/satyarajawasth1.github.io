@@ -1,5 +1,5 @@
 ---
-import Navbar from '../components/Navbar.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import { getConfig } from '../utils/config';
@@ -7,46 +7,82 @@ import { getConfig } from '../utils/config';
 const config = await getConfig();
 
 interface Props {
-	title?: string;
-	description?: string;
+  title?: string;
+  description?: string;
 }
 
-const { 
-	title = config.title,
-	description = config.description,
-} = Astro.props;
+const { title = config.title, description = config.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, config.site_url).href;
+const image = new URL(config.image, config.site_url).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: config.name,
+  url: config.site_url,
+  image,
+  email: `mailto:${config.email}`,
+  jobTitle: config.position,
+  worksFor: { '@type': 'Organization', name: config.affiliation.name },
+  sameAs: Object.values(config.links).filter(Boolean),
+};
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description}>
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/jpg" href="/SatyaRajAwasthi_profile.jpg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={config.name} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/jpeg" href={config.image} />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0b0b" media="(prefers-color-scheme: dark)" />
 
-		<!-- Add custom theme variables from config -->
-		<style define:vars={{
-			"primary-color": config.theme.primary_color,
-			"accent-color": config.theme.accent_color,
-			"background-color": config.theme.background_color,
-			"text-color": config.theme.text_color,
-		}}>
-			:root {
-				--primary-color: var(--primary-color);
-				--accent-color: var(--accent-color);
-				--background-color: var(--background-color);
-				--text-color: var(--text-color);
-			}
-		</style>
-	</head>
-	<body>
-		<Navbar />
-		<main>
-			<slot />
-		</main>
-		<Footer />
-	</body>
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Applies the saved theme (auto | light | dark) before first paint to avoid a flash. -->
+    <script is:inline>
+      (function () {
+        var pref = 'auto';
+        try { pref = localStorage.getItem('theme') || 'auto'; } catch (e) {}
+        var media = window.matchMedia('(prefers-color-scheme: dark)');
+        function apply() {
+          var resolved = pref === 'light' || pref === 'dark' ? pref : media.matches ? 'dark' : 'light';
+          document.documentElement.dataset.theme = resolved;
+          document.documentElement.dataset.themePref = pref;
+        }
+        apply();
+        media.addEventListener('change', function () { if (pref === 'auto') apply(); });
+        window.__setTheme = function (next) {
+          pref = next;
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          apply();
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main class="page">
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>

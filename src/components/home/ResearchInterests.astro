@@ -1,0 +1,35 @@
+---
+// Topics listed in the margin so readers can scan them at a glance.
+const topics = [
+  'Software engineering',
+  'AI for software engineering',
+  'Programming systems',
+  'Program analysis',
+];
+const alsoOpen = ['Databases', 'Distributed systems'];
+---
+
+<div class="row">
+  <div class="prose">
+    <p>
+      My research interests lie in software engineering, AI for software engineering, and programming systems and
+      program analysis, especially at the intersections of these areas. I am also open to exploring related areas such
+      as databases and distributed systems. I am particularly interested in how we can design and build software
+      systems that are reliable, scalable, and less error-prone, and in how agentic AI pipelines can be used in
+      practice across every stage of the software development lifecycle (development, debugging, testing, and
+      deployment), not just for code generation.
+    </p>
+  </div>
+  <aside class="note topics">
+    <ul>{topics.map((t) => <li>{t}</li>)}</ul>
+    <p><em>Also:</em> {alsoOpen.join(', ').toLowerCase()}</p>
+  </aside>
+</div>
+
+<style>
+  .topics li::before { content: '– '; }
+  .topics p { margin-top: 0.4rem; }
+  @media (max-width: 879px) {
+    .topics { display: none; }
+  }
+</style>

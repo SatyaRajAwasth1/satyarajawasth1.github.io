@@ -6,32 +6,33 @@ export interface Config {
   name: string;
   title: string;
   description: string;
+  site_url: string;
+  position: string;
+  affiliation: { name: string; url?: string };
+  location?: string;
   email: string;
   image: string;
-  nav: Array<{
-    title: string;
-    link: string;
-    order: number;
-  }>;
-  research_interests: string[];
-  research_questions: string[];
-  footer: {
-    copyright: string;
-    social: {
-      github: string;
-      linkedin: string;
-    };
-  };
-  theme: {
-    primary_color: string;
-    accent_color: string;
-    background_color: string;
-    text_color: string;
-  };
+  cv_url: string;
+  links: Record<string, string>;
 }
 
+// Cached for production builds only, so edits to site.yml show up during `yarn dev`.
+let cached: Config | undefined;
+
 export async function getConfig(): Promise<Config> {
+  if (cached && import.meta.env.PROD) return cached;
   const configPath = path.resolve(process.cwd(), 'src/config/site.yml');
   const configFile = await fs.readFile(configPath, 'utf8');
-  return yaml.load(configFile) as Config;
+  cached = yaml.load(configFile) as Config;
+  return cached;
 }
+
+/** Display labels for profile links in site.yml. */
+export const LINK_LABELS: Record<string, string> = {
+  github: 'GitHub',
+  linkedin: 'LinkedIn',
+  google_scholar: 'Google Scholar',
+  orcid: 'ORCID',
+  dblp: 'DBLP',
+  semantic_scholar: 'Semantic Scholar',
+};

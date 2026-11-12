@@ -1,0 +1,30 @@
+- id: campus-expert
+  order: 1
+  title: GitHub Campus Expert
+  org: GitHub Education
+  url: https://githubcampus.expert/SatyaRajAwasth1/
+  details:
+    - Selected among 70 candidates from 8,000+ applicants by GitHub Education for community leadership and technical engagement; delivered 10+ technical workshops and mentored at 8+ hackathons.
+
+- id: ntk
+  order: 2
+  title: Founder and Lead
+  org: Nepal Tek Community (NTK)
+  url: https://tekcommunity.ncit.edu.np
+  details:
+    - Established and led a 10+ member core team, organizing technical events and building 6 technology-focused sub-communities.
+
+- id: nosk
+  order: 3
+  title: Working Committee Member
+  org: Nepal Open Source Klub (NOSK)
+  url: https://nosk.org.np
+  details:
+    - Helped organize 20+ free and open source software events, including Software Freedom Day and Hacktoberfest, engaging 1,000+ participants.
+
+- id: talks
+  order: 4
+  title: Selected Talks and Mentorship
+  details:
+    - Speaker at Hack36 8.0 (MNNIT, India), GNOME Asia Summit 2023, and GitHub Field Day (2023, 2024).
+    - Mentor at NOSK Hackfest, MBM Ideafest, and other student-led hackathons.

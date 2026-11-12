@@ -1,0 +1,13 @@
+# Entries are sorted by year (newest first). Your name is bolded automatically.
+# Example:
+# - id: smith2027agents
+#   title: "Agentic Pipelines for Automated Debugging"
+#   authors: ["Jane Smith", "Satya Raj Awasthi", "John Doe"]
+#   venue: "ICSE 2027"
+#   year: 2027
+#   note: "Under review"
+#   links:
+#     pdf: "/papers/smith2027agents.pdf"
+#     arxiv: "https://arxiv.org/abs/..."
+#     code: "https://github.com/..."
+[]

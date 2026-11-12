@@ -1,0 +1,27 @@
+# Each job: a few short bullets saying what you did and what it was for.
+# The full detail lives in the CV.
+- id: niural
+  order: 1
+  title: Software Engineer II
+  org: Niural AI
+  url: https://www.linkedin.com/company/niural
+  period: December 2025 – Present
+  location: Lalitpur, Nepal
+  details:
+    - Architected and developed an MCP server with Accounts Payable and Accounts Receivable tools, enabling AI clients such as ChatGPT and Claude to interact with business systems and automate financial workflows through AI agents.
+    - Redesigned the data layer from a DynamoDB single-table architecture to a hybrid Aurora PostgreSQL–DynamoDB architecture, introducing normalized relational data models, hybrid application workflows, and stream-based synchronization between data stores.
+    - Designed and implemented event-driven recurring payment and invoicing workflows using AWS EventBridge, incorporating self-rescheduling execution, per-cycle state management, and approval orchestration integrating AI agents.
+    - Built automated production failure-detection and alerting pipelines using AWS CloudWatch, EventBridge, SQS, and Lambda, integrating incident notifications with Slack.
+
+- id: esewa
+  order: 2
+  title: Software Engineer I
+  org: eSewa Ltd.
+  url: https://np.linkedin.com/company/esewa
+  period: March 2023 – December 2025
+  location: Lalitpur, Nepal
+  details:
+    - Designed and implemented a real-time, PKI-secured transaction notification system using Apache Kafka, enabling more than 500K merchants to integrate transaction notifications directly into their billing systems.
+    - Re-engineered SMS middleware connecting eSewa’s messaging infrastructure with telecom operators NTC and Ncell, improving the throughput, latency, and reliability of SMS processing for millions of daily messages.
+    - Designed and implemented a key-pair handshake protocol for device binding, enabling end-to-end encrypted transaction communication between mobile applications and backend services.
+    - Developed backend services and APIs for core payment platform capabilities, including generic QR payments, scheduled processing, and third-party integrations within a microservices architecture.

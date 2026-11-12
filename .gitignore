@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# LaTeX build output (CV)
+cv/build/
+
+# Yarn 4 (keep config, ignore local install state and cache)
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
