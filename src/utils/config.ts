@@ -16,10 +16,11 @@ export interface Config {
   links: Record<string, string>;
 }
 
+// Cached for production builds only, so edits to site.yml show up during `yarn dev`.
 let cached: Config | undefined;
 
 export async function getConfig(): Promise<Config> {
-  if (cached) return cached;
+  if (cached && import.meta.env.PROD) return cached;
   const configPath = path.resolve(process.cwd(), 'src/config/site.yml');
   const configFile = await fs.readFile(configPath, 'utf8');
   cached = yaml.load(configFile) as Config;

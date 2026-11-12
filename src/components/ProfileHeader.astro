@@ -36,7 +36,7 @@ const [user, domain] = config.email.split('@');
   }
   .bio { margin-top: 1.4rem; }
 
-  .card { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1.25rem; align-items: start; margin-bottom: 1.75rem; }
+  .card { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.25rem; align-items: start; margin-bottom: 1.75rem; }
   .masthead { display: flex; flex-direction: column; }
   .card { order: 1; margin: 2rem 0 0; }
   .photo {
@@ -46,7 +46,7 @@ const [user, domain] = config.email.split('@');
     filter: grayscale(1) contrast(1.02);
     border: 1px solid var(--rule);
   }
-  .contact { color: var(--ink-2); line-height: 1.6; }
+  .contact { min-width: 0; color: var(--ink-2); line-height: 1.6; overflow-wrap: anywhere; }
   .contact a { text-decoration-color: var(--rule); }
   .contact a:hover { text-decoration-color: var(--accent); }
   .at { font-family: var(--serif); }
@@ -55,7 +55,7 @@ const [user, domain] = config.email.split('@');
   @media (min-width: 880px) {
     .masthead { display: grid; padding-top: 3.5rem; }
     .card { order: 0; display: block; margin: 0; padding-top: 0.6rem; }
-    .photo { width: 14rem; margin-bottom: 1.1rem; }
+    .photo { width: 100%; max-width: 14rem; margin-bottom: 1.1rem; }
     h1 { font-size: 2.75em; }
   }
 </style>

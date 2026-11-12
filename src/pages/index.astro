@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import ProfileHeader from '../components/ProfileHeader.astro';
 import Section from '../components/Section.astro';
@@ -8,30 +7,14 @@ import ResearchInterests from '../components/home/ResearchInterests.astro';
 import NewsList from '../components/NewsList.astro';
 import PublicationList from '../components/PublicationList.astro';
 import EntryList from '../components/EntryList.astro';
+import { getHomeSections } from '../utils/sections';
 
-const [news, publications, experience, education, service] = await Promise.all([
-  getCollection('news'),
-  getCollection('publications'),
-  getCollection('experience'),
-  getCollection('education'),
-  getCollection('service'),
-]);
-
-// Section order on the page. Data-backed sections are skipped when empty.
-const sections = [
-  { id: 'research', title: 'Research', show: true },
-  { id: 'news', title: 'News', show: news.length > 0 },
-  { id: 'publications', title: 'Publications', show: publications.length > 0 },
-  { id: 'experience', title: 'Experience', show: experience.length > 0 },
-  { id: 'education', title: 'Education', show: education.length > 0 },
-  { id: 'service', title: 'Service', show: service.length > 0 },
-].filter((s) => s.show);
-
+const { sections, collections } = await getHomeSections();
+const { news, publications, experience, education, service } = collections;
 const has = (id: string) => sections.some((s) => s.id === id);
-const navSections = sections;
 ---
 
-<Layout sections={navSections}>
+<Layout>
   <ProfileHeader><About /></ProfileHeader>
 
   <Section id="research" title="Research interests"><ResearchInterests /></Section>

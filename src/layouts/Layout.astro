@@ -9,10 +9,9 @@ const config = await getConfig();
 interface Props {
   title?: string;
   description?: string;
-  sections?: { id: string; title: string }[];
 }
 
-const { title = config.title, description = config.description, sections } = Astro.props;
+const { title = config.title, description = config.description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, config.site_url).href;
 const image = new URL(config.image, config.site_url).href;
 
@@ -80,7 +79,7 @@ const jsonLd = {
     </script>
   </head>
   <body>
-    <Header sections={sections} />
+    <Header />
     <main class="page">
       <slot />
     </main>

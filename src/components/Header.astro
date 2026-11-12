@@ -1,30 +1,18 @@
 ---
 import { getConfig } from '../utils/config';
-
-interface Props {
-  /** In-page sections to link to (only those actually rendered). */
-  sections?: { id: string; title: string }[];
-}
+import { getHomeSections } from '../utils/sections';
 
 const config = await getConfig();
-const {
-  sections = [
-    { id: 'research', title: 'Research' },
-    { id: 'experience', title: 'Experience' },
-    { id: 'education', title: 'Education' },
-    { id: 'service', title: 'Service' },
-  ],
-} = Astro.props;
+const { sections } = await getHomeSections();
 const onHome = Astro.url.pathname === '/';
 const base = onHome ? '' : '/';
-const shortTitle = (t: string) => t.split(' ')[0]; // "Service & Community" → "Service"
 ---
 
 <header class="page top">
   <a href="/" class="home sc" aria-current={onHome ? 'page' : undefined}>{config.name}</a>
   <nav aria-label="Main">
     <ul class="sc">
-      {sections.map((s) => <li><a href={`${base}#${s.id}`}>{shortTitle(s.title)}</a></li>)}
+      {sections.map((s) => <li><a href={`${base}#${s.id}`}>{s.title}</a></li>)}
       <li><a href="/cv" aria-current={Astro.url.pathname.startsWith('/cv') ? 'page' : undefined}>CV</a></li>
       <li>
         <button id="theme-toggle" type="button" class="sc" aria-label="Color theme: auto. Click to change.">

@@ -105,7 +105,8 @@ strong, b { font-weight: 600; }
 @media (min-width: 880px) {
   .row {
     display: grid;
-    grid-template-columns: minmax(0, var(--text)) minmax(0, 1fr);
+    /* The margin keeps at least 13rem; the text column gives way first. */
+    grid-template-columns: minmax(0, var(--text)) minmax(13rem, 1fr);
     column-gap: var(--gap);
     align-items: start;
   }
